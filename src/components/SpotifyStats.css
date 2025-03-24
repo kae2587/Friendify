@@ -1,0 +1,115 @@
+.spotify-stats {
+  max-width: 1200px;
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.spotify-stats h1 {
+  font-size: 32px;
+}
+
+/* Grid Layout */
+.stats-grid {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 50px;
+  align-items: stretch;
+}
+
+/* Top Artists */
+.top-artists {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.top-artists h2 {
+  margin: 20px;
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 20px;
+  justify-content: center;
+}
+
+.artist-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artist-item img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Top Songs */
+.top-songs {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  width: 100%;
+  max-width: 600px;
+  min-width: 400px;
+}
+
+.song-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.song-info {
+  text-align: left;
+  flex-grow: 1;
+  min-width: 0; /* Ensures text respects the available space */
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides overflow */
+  text-overflow: ellipsis; /* Adds "..." if text is too long */
+}
+
+.song-info .name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.song-info .album {
+  font-style: italic;
+  color: #aaa;
+}
+
+.song-info .artist {
+  color: #ccc;
+}
+
+.play-count {
+  background: white;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
