@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchUserTopTracks, fetchUserTopArtists } from "./services/spotifyService";
-import { loginWithSpotify } from "./services/spotifyAuth";
+import { loginWithSpotify, logoutSpotify } from "./services/spotifyAuth";
 import SpotifyStats from "./components/SpotifyStats";
 import "./App.css";
 
@@ -31,7 +31,10 @@ function App() {
   return (
     <div>
       {accessToken ? (
-        <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
+        <div>
+          <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
+          <button onClick={logoutSpotify}>Logout of Spotify</button>
+        </div>
       ) : (
         <button onClick={loginWithSpotify}>Login with Spotify</button>
       )}

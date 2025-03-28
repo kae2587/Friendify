@@ -28,3 +28,26 @@ body {
   width: 100%;
   padding: 20px;
 }
+
+button {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 50px;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: white;
+  color: #1db954;
+  transform: scale(1.05);
+}
+
+div {
+  text-align: center;
+}
