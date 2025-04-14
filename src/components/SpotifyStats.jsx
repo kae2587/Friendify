@@ -4,7 +4,7 @@ import "./SpotifyStats.css";
 const SpotifyStats = ({ topArtists, topTracks }) => {
   return (
     <div>
-      <div className="now-playing">
+      {/* <div className="now-playing">
         <div className="now-playing-header">
           <span>🎧</span> 
           <span className="song-info">
@@ -24,7 +24,7 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
             {spotifyName}
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="spotify-stats">
         <h1>In the Last Month...</h1>
@@ -53,9 +53,6 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
                   <p className="name">{track.name}</p>
                   <p className="album">{track.album.name}</p>
                   <p className="artist">{track.artists[0].name}</p>
-                </div>
-                <div className="play-count">
-                  Played {track.playcount} Times
                 </div>
               </div>
             ))}
