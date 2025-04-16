@@ -1,44 +1,135 @@
-.spotify-stats {
-  max-width: 1200px;
-  width: 100%;
-  padding: 40px;
+
+.spotify-container {
+  background-color: #111;
+  color: white;
+  min-height: 100vh;
+  width: 100vw; /* ⬅️ make it span full screen */
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.bio {
+  color: #aaa;
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: 0.5rem auto 1.5rem;
+}
+
+.edit-button {
+  background-color: #1db954;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.toggle,
+.toggle-active {
+  padding: 0.4rem 1rem;
+  margin: 0 0.3rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-active {
+  background: white;
+  color: black;
+}
+
+.toggle {
+  background: #444;
+  color: white;
+}
+
+.listening-status {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+.connect-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.connect {
+  background-color: #222;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  margin: 0.3rem 0;
+  border: none;
+  border-radius: 5px;
+  width: 220px;
+}
+
+.stats-section {
   text-align: center;
 }
 
-.spotify-stats h1 {
-  font-size: 32px;
+.section-header {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-/* Grid Layout */
-.stats-grid {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 50px;
-  align-items: stretch;
-}
-
-/* Top Artists */
-.top-artists {
-  flex: 1;
-  padding: 20px;
+.stats-content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 2rem;
 }
 
-.top-artists h2 {
-  margin: 20px;
+@media (min-width: 768px) {
+  .stats-content {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+.top-artists,
+.top-songs {
+  flex: 1;
+}
+
+.sub-header {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 .artist-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
-  gap: 20px;
-  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
 }
 
 .artist-item {
@@ -47,69 +138,58 @@
   align-items: center;
 }
 
-.artist-item img {
-  width: 160px;
-  height: 160px;
+.artist-img {
+  width: 150px;
+  height: 150px;
+  background-color: #444;
   border-radius: 50%;
-  object-fit: cover;
 }
 
-/* Top Songs */
-.top-songs {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.artist-label {
+  margin-top: 0.5rem;
+  font-size: 1.85rem;
+  color: #ccc;
+}
+
+.song-list {
+  list-style: none;
+  padding: 0;
 }
 
 .song-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 15px;
-  padding: 15px;
-  width: 100%;
-  max-width: 600px;
-  min-width: 400px;
+  background: #222;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 
-.song-item img {
-  width: 60px;
-  height: 60px;
-  border-radius: 8px;
-  object-fit: cover;
+.song-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.song-info {
-  text-align: left;
-  flex-grow: 1;
-  min-width: 0; /* Ensures text respects the available space */
-  white-space: nowrap; /* Prevents text from wrapping */
-  overflow: hidden; /* Hides overflow */
-  text-overflow: ellipsis; /* Adds "..." if text is too long */
+.song-img {
+  width: 50px;
+  height: 50px;
+  background-color: #444;
 }
 
-.song-info .name {
-  font-size: 16px;
+.song-name {
   font-weight: bold;
 }
 
-.song-info .album {
-  font-style: italic;
-  color: #aaa;
-}
-
-.song-info .artist {
-  color: #ccc;
+.song-meta {
+  font-size: 0.8rem;
+  color: #bbb;
 }
 
 .play-count {
-  background: white;
-  color: black;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
+  background: #444;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
 }

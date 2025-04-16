@@ -11,6 +11,8 @@ export const fetchUserTopTracks = async (accessToken) => {
         time_range: "short_term",
       },
     });
+
+  console.log(response.data.items);
     return response.data.items;
   } catch (error) {
     console.error("Error fetching top tracks:", error);
