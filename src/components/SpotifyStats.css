@@ -173,17 +173,19 @@
 }
 
 .song-img {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   background-color: #444;
 }
 
 .song-name {
   font-weight: bold;
+  text-align: left;
 }
 
 .song-meta {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  text-align: left;
   color: #bbb;
 }
 
