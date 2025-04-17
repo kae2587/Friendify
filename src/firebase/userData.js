@@ -11,5 +11,5 @@ export const getUserData = async (uid) => {
 };
 
 export const updateUserData = async (uid, updates) => {
-  await updateDoc(doc(db, "users", uid), updates);
+  await setDoc(doc(db, "users", uid), updates, { merge: true });
 };
