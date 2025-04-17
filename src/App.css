@@ -51,3 +51,25 @@ button:hover {
 div {
   text-align: center;
 }
+
+input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  background-color: #282828;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+input::placeholder {
+  text-align: center;
+}
+
+button:hover {
+  background-color: white;
+  color: #1db954;
+  transform: scale(1.05);
+}
