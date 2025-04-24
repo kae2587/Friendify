@@ -1,15 +1,69 @@
-.spotify-stats {
+.spotify-container {
   max-width: 1200px;
   width: 100%;
   padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 
-.spotify-stats h1 {
+.spotify-container h1 {
   font-size: 32px;
+}
+
+/* Profile Section */
+.profile-section {
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 10px;
+}
+
+.profile-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.bio {
+  color: #aaa;
+  font-size: 0.9rem;
+  max-width: 400px;
+  margin: 5px;
+}
+
+.edit-button {
+  background-color: #121212;
+  border: white 1px solid;
+  margin: 5px;
+}
+
+.edit-button:hover {
+  background-color: white;
+  color: #121212;
+  border: none;
+  margin: 5px;
+}
+
+.social-button {
+  background-color: #222;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  margin: 5px;
+  border: none;
+  /* border-radius: 5px; */
+  width: 220px;
+}
+
+.social-button:hover {
+  background-color: white;
+  color: #222;
+  transform: scale(1.05);
 }
 
 /* Grid Layout */
