@@ -4,7 +4,7 @@ import { loginWithSpotify, logoutSpotify } from "./services/spotifyAuth";
 import AuthForm from "./components/AuthForm";
 import SpotifyStats from "./components/SpotifyStats";
 
-import { updateUserData } from "./firebase/userData";
+import { saveUserSpotifyData } from "./firebase/userData";
 import { auth } from "./firebase/firebase"; //to get currentUser
 
 import "./App.css";
@@ -36,7 +36,7 @@ function App() {
     }
   }, []);
 
-  //Fetch & save Spotify data to Firestore
+  //fetch & save Spotify data to Firestore
   useEffect(() => {
     const fetchAndSaveSpotifyData = async () => {
       if (!accessToken) {
@@ -57,10 +57,10 @@ function App() {
         
         console.log("Current Firebase user:", auth.currentUser);
 
-        await updateUserData(auth.currentUser.uid, {
+        await saveUserSpotifyData(auth.currentUser.uid, {
           spotifyAccessToken: accessToken,
           topTracks: tracks,
-          topArtists: artists
+          topArtists: artists,
         });
       } catch (err) {
         console.error("Error saving to Firebase:", err);
@@ -79,41 +79,16 @@ function App() {
     });
   };
 
-  // useEffect(() => {
-  //   const fetchAndSaveSpotifyData = async () => {
-  //     if (!accessToken || !user) return;
-
-  //     const tracks = await fetchUserTopTracks(accessToken);
-  //     const artists = await fetchUserTopArtists(accessToken);
-
-  //     setTopTracks(tracks);
-  //     setTopArtists(artists);
-
-  //     // Save to Firestore
-  //     await updateUserData(user.uid, {
-  //       spotifyAccessToken: accessToken,
-  //       topTracks: tracks,
-  //       topArtists: artists,
-  //     });
-  //   };
-
-  //   fetchAndSaveSpotifyData();
-  // }, [accessToken, user]);
-
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     fetchUserTopTracks(accessToken).then(setTopTracks);
-  //     fetchUserTopArtists(accessToken).then(setTopArtists);
-  //   }
-  // }, [accessToken]);
-
   return (
     <div>
-      {!user ? ( //Not logged in → show Firebase auth form
+      {!user ? ( //not logged in --> show Firebase auth form
         <AuthForm />
-      ) : !accessToken ? ( //Logged in, but not connected to Spotify
-        <button onClick={loginWithSpotify}>Login with Spotify</button>
-      ) : ( //Logged in + connected → show stats
+      ) : !accessToken ? ( //logged in, but not connected to Spotify
+        <div>
+          <h2 style={{ margin: '10px' }}>One More Step!</h2>
+          <button onClick={loginWithSpotify}>Please connect your Spotify account.</button>
+        </div>
+      ) : ( //logged in + connected --> show stats
         <div>
           <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
           <button onClick={handleFullLogout}>Logout</button>

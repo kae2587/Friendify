@@ -26,11 +26,11 @@ const AuthForm = () => {
       console.error("Login error:", err);
     }
   };
-
+  
   return (
     <div>
       <div>
-        <h2 style={{ margin: '25px' }}> Welcome to <span style={{ color: '#1db954' }}>Friendify</span>! </h2>
+        <h2 style={{ margin: '25px' }}> Welcome to <span style={{ color: '#ad49e1' }}>Friendify</span>! </h2>
         <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
         <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" />
       </div>
@@ -44,7 +44,7 @@ const AuthForm = () => {
           <span 
             style={{
               cursor: 'pointer',
-              color: isHovered ? 'white' : '#1db954',
+              color: isHovered ? 'white' : '#ad49e1',
               transform: isHovered ? 'scale(1.05)' : 'none',
               display: 'inline-block',
               transition: 'transform 0.2s ease, color 0.2s ease',

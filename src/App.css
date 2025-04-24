@@ -30,7 +30,7 @@ body {
 }
 
 button {
-  background-color: #1db954;
+  background-color: #ad49e1;
   color: white;
   border: none;
   padding: 5px 20px;
@@ -44,7 +44,7 @@ button {
 
 button:hover {
   background-color: white;
-  color: #1db954;
+  color: #ad49e1;
   transform: scale(1.05);
 }
 
@@ -53,6 +53,7 @@ div {
 }
 
 input {
+  text-align: center;
   width: 100%;
   max-width: 400px;
   padding: 10px;
@@ -62,14 +63,4 @@ input {
   color: white;
   font-size: 16px;
   margin-bottom: 20px;
-}
-
-input::placeholder {
-  text-align: center;
-}
-
-button:hover {
-  background-color: white;
-  color: #1db954;
-  transform: scale(1.05);
 }
