@@ -3,6 +3,7 @@ import { fetchUserTopTracks, fetchUserTopArtists } from "./services/spotifyServi
 import { loginWithSpotify, logoutSpotify } from "./services/spotifyAuth";
 import AuthForm from "./components/AuthForm";
 import SpotifyStats from "./components/SpotifyStats";
+import Header from "./components/Header";
 
 import { saveUserSpotifyData } from "./firebase/userData";
 import { auth } from "./firebase/firebase"; //to get currentUser
@@ -89,10 +90,13 @@ function App() {
           <button onClick={loginWithSpotify}>Please connect your Spotify account.</button>
         </div>
       ) : ( //logged in + connected --> show stats
-        <div  style={{ backgroundColor: '#222' }}>
-          <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
-          <button className = "LogOutBut" onClick={handleFullLogout}>Logout</button>
+        <>
+        <div className="headerDiv">
+          <Header />
         </div>
+        <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
+        <button className="LogOutBut" onClick={handleFullLogout}>Logout</button>
+      </>
       )}
     </div>
   );

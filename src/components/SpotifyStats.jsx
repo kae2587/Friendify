@@ -18,14 +18,7 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
   return (
   
       <div className="spotify-container">
-
-
         <div className="profile-section">
-
-        <div className="header-section">
-          <Header />
-        </div>
-
 
 
         <div className="profile-content">
