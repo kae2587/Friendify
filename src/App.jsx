@@ -89,9 +89,9 @@ function App() {
           <button onClick={loginWithSpotify}>Please connect your Spotify account.</button>
         </div>
       ) : ( //logged in + connected --> show stats
-        <div>
+        <div  style={{ backgroundColor: '#222' }}>
           <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
-          <button onClick={handleFullLogout}>Logout</button>
+          <button className = "LogOutBut" onClick={handleFullLogout}>Logout</button>
         </div>
       )}
     </div>

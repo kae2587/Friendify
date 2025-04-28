@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import "./SpotifyStats.css";
+import Header from "./Header";
 import image from '../assets/tempProfilePicture.jpg';
 
 const SpotifyStats = ({ topArtists, topTracks }) => {
@@ -15,15 +16,24 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
   }, []);
 
   return (
-    <div>
+  
       <div className="spotify-container">
+
+
         <div className="profile-section">
+
+        <div className="header-section">
+          <Header />
+        </div>
+
+
+
+        <div className="profile-content">
           <img src={image} alt="Profile Picture" className="profile-image" />
           <div>
             <h1>User's Name</h1>
             <p className="bio">
-              Bio Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna
+              A Bio
             </p>
             <div className="social-buttons">
               <p style={{marginTop: 10}}><strong>Linked Social Accounts</strong></p>
@@ -33,6 +43,10 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
             <button className="edit-button">Edit Profile</button>
           </div>
         </div>
+        </div>
+
+
+
 
         <div className="stats-section">
           {/* Stats Grid */}
@@ -68,8 +82,15 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
           </div>
         </div>
 
+
+
+
+
+
+
+
       </div>
-    </div>
+    
   );
 };
 
