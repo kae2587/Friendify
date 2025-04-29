@@ -21,15 +21,24 @@
 
     
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
+
+
+
 const Header = () => {
+
+    const handleGenerateClick = () => {
+        window.location.href = "/generate-matches";
+      };
+
   return (
     <div className="header-banner">
-      <div className="header-content">
-        <h1>FRIENDIFY</h1>
-        <button className="header-button">Button</button>
+      <div className="header-left">
+        <h1 className="logo">FRIENDIFY</h1>
       </div>
+      <button className="header-button" onClick={handleGenerateClick}>Generate Matches</button>
     </div>
   );
 };

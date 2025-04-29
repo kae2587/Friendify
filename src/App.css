@@ -80,7 +80,23 @@ input {
   width: 100%; /* FULL width */
   display: flex;
   justify-content: center;
-  margin-top: 200px;
+  margin-top: 180px;
   margin-bottom: 10px;
+}
+
+
+.generate-page {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #121212; /* dark background if needed */
+  min-height: 100vh; /* stretch full screen height */
+}
+
+.generate-content {
+  text-align: center;
+  padding: 40px;
+  color: white;
+  font-size: 24px;
 }
 

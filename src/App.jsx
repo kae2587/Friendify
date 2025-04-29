@@ -4,6 +4,7 @@ import { loginWithSpotify, logoutSpotify } from "./services/spotifyAuth";
 import AuthForm from "./components/AuthForm";
 import SpotifyStats from "./components/SpotifyStats";
 import Header from "./components/Header";
+import GenerateMatches from "./components/GenerateMatches";
 
 import { saveUserSpotifyData } from "./firebase/userData";
 import { auth } from "./firebase/firebase"; //to get currentUser
@@ -16,6 +17,9 @@ function App() {
   const [topArtists, setTopArtists] = useState([]);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("spotify_access_token"));
   
+
+
+
   //Firebase login
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
@@ -35,6 +39,10 @@ function App() {
         window.location.hash = ""; //clean URL
       }
     }
+
+
+  
+
   }, []);
 
   //fetch & save Spotify data to Firestore
@@ -80,6 +88,24 @@ function App() {
     });
   };
 
+
+  const currentPath = window.location.pathname;
+  if (currentPath === "/generate-matches") {
+    return (
+      <>
+
+
+        <div>
+        <GenerateMatches />
+        </div>
+      </>
+    );
+  }
+
+
+
+
+
   return (
     <div>
       {!user ? ( //not logged in --> show Firebase auth form
@@ -103,3 +129,4 @@ function App() {
 }
 
 export default App;
+
