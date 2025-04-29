@@ -44,3 +44,17 @@
     color: black;
   }
   
+
+  .logo-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.logo-button h1 {
+  color: white; /* or whatever color your logo is */
+  font-size: 32px;
+  margin: 0;
+}

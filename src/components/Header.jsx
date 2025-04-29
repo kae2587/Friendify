@@ -33,10 +33,17 @@ const Header = () => {
         window.location.href = "/generate-matches";
       };
 
+      const handleFriendClick = () => {
+        window.location.href = "/";
+      }
+
   return (
     <div className="header-banner">
       <div className="header-left">
-        <h1 className="logo">FRIENDIFY</h1>
+      <button className="logo-button" onClick={handleFriendClick}>
+      <h1 className="logo">FRIENDIFY</h1>
+    </button>
+
       </div>
       <button className="header-button" onClick={handleGenerateClick}>Generate Matches</button>
     </div>
