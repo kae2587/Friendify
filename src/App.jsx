@@ -98,7 +98,7 @@ function App() {
 
 
         <div>
-        <GenerateMatches />
+        <GenerateMatches topArtists={topArtists} />
         </div>
       </>
     );
@@ -128,6 +128,10 @@ function App() {
       )}
     </div>
   );
+
+
+ 
+  
 }
 
 export default App;

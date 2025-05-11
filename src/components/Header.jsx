@@ -30,7 +30,8 @@ import "./Header.css";
 const Header = () => {
 
     const handleGenerateClick = () => {
-        window.location.href = "/generate-matches";
+        window.location.href = "/generate-matches"; topArtists={topArtists}
+       
       };
 
       const handleFriendClick = () => {
