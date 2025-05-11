@@ -1,283 +1,3 @@
-
-
-// import React, { useEffect, useState, useRef } from "react";
-// import Header from "./Header";
-// import "../App.css";
-// import {
-//   fetchUserTopTracks,
-//   fetchUserTopArtists,
-// } from "../services/spotifyService";
-// import {
-//   saveUserSpotifyData,
-//   getAllUsersTopArtists,
-// } from "../firebase/userData";
-// import { auth } from "../firebase/firebase";
-
-// // Utility: calculate cosine similarity
-// const cosineSimilarity = (vecA, vecB) => {
-//   const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
-//   const magnitudeA = Math.sqrt(vecA.reduce((sum, val) => sum + val * val, 0));
-//   const magnitudeB = Math.sqrt(vecB.reduce((sum, val) => sum + val * val, 0));
-//   if (magnitudeA === 0 || magnitudeB === 0) return 0;
-//   return dotProduct / (magnitudeA * magnitudeB);
-// };
-
-// // Utility: get 10 unique random indices
-// const getRandomIndices = (length, count = 10) => {
-//   const indices = new Set();
-//   while (indices.size < Math.min(count, length)) {
-//     indices.add(Math.floor(Math.random() * length));
-//   }
-//   return Array.from(indices);
-// };
-
-// const GenerateMatches = () => {
-//   const [allTopArtists, setAllTopArtists] = useState([]);
-//   const [topMatches, setTopMatches] = useState([]);
-//   const [topArtists, setTopArtists] = useState([]);
-//   const [topTracks, setTopTracks] = useState([]);
-//   const [accessToken, setAccessToken] = useState(
-//     localStorage.getItem("spotify_access_token")
-//   );
-//   const [currentIndex, setCurrentIndex] = useState(0);
-//   const cardRefs = useRef([]);
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("spotify_access_token");
-//     if (token) {
-//       setAccessToken(token);
-//     }
-//   }, []);
-
-//   useEffect(() => {
-//     const fetchAndSaveSpotifyData = async () => {
-//      // const user = auth.currentUser;
-//       try {
-//         const tracks = await fetchUserTopTracks(accessToken);
-//         const artists = await fetchUserTopArtists(accessToken);
-//         setTopTracks(tracks);
-//         setTopArtists(artists);
-        
-
-//         await saveUserSpotifyData(user.uid, {
-//           spotifyAccessToken: accessToken,
-//           topTracks: tracks,
-//           topArtists: artists,
-//         });
-//       } catch (err) {
-//         console.error("Error saving to Firebase:", err);
-//       }
-//     };
-
-//     fetchAndSaveSpotifyData();
-//   }, []);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         // const artistsData = await getAllUsersTopArtists();
-//         const artistsData = [
-//           {
-//             uid: "user1",
-//             topArtists: [
-//               { id: "1", name: "Taylor Swift" },
-//               { id: "2", name: "SZA" },
-//               { id: "3", name: "Bad Bunny" },
-//               { id: "4", name: "Lorde" },
-//             ],
-//           },
-//           {
-//             uid: "user2",
-//             topArtists: [
-//               { id: "1", name: "Taylor Swift" },
-//               { id: "2", name: "SZA" },
-//               { id: "3", name: "Bad Bunny" },
-//               { id: "4", name: "Lorde" },
-//             ],
-//           },
-//           {
-//             uid: "user3",
-//             topArtists: [
-//               { id: "1", name: "Taylor Swift" },
-//               { id: "2", name: "SZA" },
-//               { id: "3", name: "Bad Bunny" },
-//               { id: "4", name: "Lorde" },
-//             ],
-//           },
-//         ];
-//         setAllTopArtists(artistsData);
-//       } catch (err) {
-//         console.error("Error fetching all users' top artists:", err);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   useEffect(() => {
-//     if (allTopArtists.length === 0 || !topArtists || topArtists.length === 0)
-//       return;
-
-//     const uniqueArtists = new Set();
-//     allTopArtists.forEach((user) =>
-//       user.topArtists.forEach((artist) => uniqueArtists.add(artist.name.trim()))
-//     );
-//     topArtists.forEach((artist) => uniqueArtists.add(artist.name.trim()));
-//     const artistList = Array.from(uniqueArtists);
-
-//     const toVector = (userArtists) => {
-//       const artistNames = userArtists.map((a) => a.name.trim());
-//       return artistList.map((name) => (artistNames.includes(name) ? 1 : 0));
-//     };
-
-//     const currentUserVector = toVector(topArtists);
-//     const indices = getRandomIndices(allTopArtists.length, 10);
-//     const candidates = indices.map((i) => allTopArtists[i]);
-
-//     const matches = candidates
-//       .map((user) => {
-//         const otherVector = toVector(user.topArtists);
-//         const similarity = cosineSimilarity(currentUserVector, otherVector);
-//         return { uid: user.uid, similarity };
-//       })
-//       .filter((match) => match.similarity >= 0.7);
-
-//     setTopMatches(matches);
-//     setCurrentIndex(matches.length - 1);
-//   }, [allTopArtists, topArtists]);
-
-//   // Drag events
-//   const handleDragStart = (e, i) => {
-//     const card = cardRefs.current[i];
-//     card.startX = e.clientX || e.touches[0].clientX;
-//   };
-
-//   const handleDragMove = (e, i) => {
-//     const card = cardRefs.current[i];
-//     if (!card.startX) return;
-//     const x = (e.clientX || e.touches[0].clientX) - card.startX;
-//     card.style.transform = `translateX(${x}px) rotate(${x / 10}deg)`;
-//     card.x = x;
-//   };
-
-
-
-// const handleDragEnd = (e, i) => {
-//   const card = cardRefs.current[i];
-//   const threshold = 100;
-
-//   if (card.x > threshold || card.x < -threshold) {
-//     // Animate out
-//     card.style.transition = "transform 0.3s ease-out";
-//     card.style.transform = `translateX(${card.x > 0 ? 1000 : -1000}px) rotate(${card.x / 10}deg)`;
-
-//     setTimeout(() => {
-//       // 🔧 Reset style BEFORE moving to the back of the deck
-//       card.style.transition = "none";
-//       card.style.transform = "none";
-//       card.startX = null;
-//       card.x = 0;
-
-//       // 🔁 Move card to back
-//       setTopMatches((prev) => {
-//         const swipedCard = prev[i];
-//         const newDeck = [...prev];
-//         newDeck.splice(i, 1);
-//         newDeck.push(swipedCard);
-//         return newDeck;
-//       });
-
-//     }, 300);
-//   } else {
-//     // Not swiped enough: reset position
-//     card.style.transition = "transform 0.2s ease";
-//     card.style.transform = "translateX(0px) rotate(0deg)";
-//     setTimeout(() => {
-//       card.style.transition = "none";
-//     }, 200);
-//   }
-
-//   // Always clear drag state
-//   card.startX = null;
-//   card.x = 0;
-// };
-
-// const handleArrowSwipe = (direction) => {
-//   const i = currentIndex;
-//   const card = cardRefs.current[i];
-//   if (!card) return;
-
-//   const swipeDistance = direction === "left" ? -1000 : 1000;
-//   card.style.transition = "transform 0.3s ease-out";
-//   card.style.transform = `translateX(${swipeDistance}px) rotate(${swipeDistance / 10}deg)`;
-
-//   setTimeout(() => {
-//     card.style.transition = "none";
-//     card.style.transform = "none";
-//     card.startX = null;
-//     card.x = 0;
-
-//     setTopMatches((prev) => {
-//       const swipedCard = prev[i];
-//       const newDeck = [...prev];
-//       newDeck.splice(i, 1);
-//       newDeck.push(swipedCard);
-//       return newDeck;
-//     });
-//   }, 300);
-// };
-
-
-  
-
-//   return (
-//     <div className="generate-page">
-//       <Header />
-//       <div className="generate-content">
-//         <h2>These are your matches!</h2>
-//         {topMatches.length === 0 ? (
-//           <p>No strong matches found in this sample.</p>
-//         ) : (
-//           <div className="swipe-container">
-//             {topMatches.map((match, i) =>
-//               i <= currentIndex ? (
-//                 <div
-//                   key={i}
-//                   className="swipe-card"
-//                   ref={(el) => (cardRefs.current[i] = el)}
-//                   style={{ zIndex: i }}
-//                   onMouseDown={(e) => handleDragStart(e, i)}
-//                   onTouchStart={(e) => handleDragStart(e, i)}
-//                   onMouseMove={(e) => handleDragMove(e, i)}
-//                   onTouchMove={(e) => handleDragMove(e, i)}
-//                   onMouseUp={(e) => handleDragEnd(e, i)}
-//                   onTouchEnd={(e) => handleDragEnd(e, i)}
-//                 >
-//                   <h3>Match: {match.uid}</h3>
-//                   <p>Similarity Score: {Math.round(match.similarity * 100)}%</p>
-//                 </div>
-//               ) : null
-//             )}
-//           </div>
-
-//         )}
-
-//         <div className="swipe-buttons">
-//           <button onClick={() => handleArrowSwipe("left")}>&larr; Swipe Left</button>
-//           <button onClick={() => handleArrowSwipe("right")}>&rarr; Swipe Right</button>
-//         </div>
-
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default GenerateMatches;
-
-
-
-
 import React, { useEffect, useState, useRef } from "react";
 import Header from "./Header";
 import "../App.css";
@@ -312,10 +32,12 @@ const getRandomIndices = (length, count = 10) => {
 const GenerateMatches = () => {
   const [allTopArtists, setAllTopArtists] = useState([]);
   const [topMatches, setTopMatches] = useState([]);
+  const [originalMatches, setOriginalMatches] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("spotify_access_token"));
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [resetting, setResetting] = useState(false);
   const cardRefs = useRef({});
 
   useEffect(() => {
@@ -413,9 +135,22 @@ const GenerateMatches = () => {
       })
       .filter((match) => match.similarity >= 0.7);
 
+    setOriginalMatches(matches);
     setTopMatches(matches);
     setCurrentIndex(0);
   }, [allTopArtists, topArtists]);
+
+  // Reset the stack when empty
+  useEffect(() => {
+    if (topMatches.length === 0 && originalMatches.length > 0) {
+      setResetting(true);
+      setTimeout(() => {
+        setTopMatches(originalMatches);
+        setCurrentIndex(0);
+        setResetting(false);
+      }, 1000);
+    }
+  }, [topMatches, originalMatches]);
 
   const handleDragStart = (e, i) => {
     const card = cardRefs.current[i];
@@ -494,7 +229,9 @@ const GenerateMatches = () => {
       <Header />
       <div className="generate-content">
         <h2>These are your matches!</h2>
-        {topMatches.length === 0 ? (
+        {resetting ? (
+          <p>You're done! Restarting...</p>
+        ) : topMatches.length === 0 ? (
           <p>No strong matches found in this sample.</p>
         ) : (
           <div className="swipe-container">
