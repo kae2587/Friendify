@@ -1,4 +1,5 @@
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+// import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const createUserDoc = async (uid, userData) => {
@@ -30,4 +31,35 @@ export const saveUserProfile = async (uid, profile) => {
   await updateDoc(userRef, {
     profile
   });
+};
+
+
+export const getAllUsersTopArtists = async () => {
+  console.log("Hello");
+
+  try {
+    const usersRef = collection(db, "users");
+    const snapshot = await getDocs(usersRef);
+   
+
+    const topArtistsData = [];
+
+
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.topArtists) {
+        topArtistsData.push({
+          uid: doc.id,
+          topArtists: data.topArtists,
+        });
+      }
+    });
+
+   
+    return topArtistsData;
+  } catch (error) {
+    console.error("Error in getAllUsersTopArtists:", error);
+    return [];
+  }
 };

@@ -71,6 +71,8 @@ function App() {
           topTracks: tracks,
           topArtists: artists,
         });
+
+
       } catch (err) {
         console.error("Error saving to Firebase:", err);
       }
