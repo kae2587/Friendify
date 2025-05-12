@@ -48,9 +48,42 @@ export const fetchUserTopArtists = async (accessToken) => {
 }
 
 
+// export const fetchArtistInfoByName = async (artistName, accessToken) => {
+//   try {
+  
+//     const searchRes = await axios.get("https://api.spotify.com/v1/search", {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//       params: {
+//         q: artistName,
+//         type: "artist",
+//         limit: 1,
+//       },
+//     });
+
+//     const artist = searchRes.data.artists.items[0];
+//     if (!artist) {
+//       console.warn("Artist not found.");
+//       return null;
+//     }
+
+//     return {
+//       name: artist.name,
+//       popularity: artist.popularity,
+//       followers: artist.followers.total,
+//       genres: artist.genres,
+//       image: artist.images[0]?.url || null,
+//       id: artist.id,
+//     };
+//   } catch (error) {
+//     console.error("Error fetching artist info:", error);
+//     return null;
+//   }
+// }
+
 export const fetchArtistInfoByName = async (artistName, accessToken) => {
   try {
-  
     const searchRes = await axios.get("https://api.spotify.com/v1/search", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -58,13 +91,19 @@ export const fetchArtistInfoByName = async (artistName, accessToken) => {
       params: {
         q: artistName,
         type: "artist",
-        limit: 1,
+        limit: 5, // increase to check top 5 results
       },
     });
 
-    const artist = searchRes.data.artists.items[0];
+    const candidates = searchRes.data.artists.items;
+
+    // Try exact match ignoring case
+    const artist = candidates.find(
+      (a) => a.name.toLowerCase().trim() === artistName.toLowerCase().trim()
+    );
+
     if (!artist) {
-      console.warn("Artist not found.");
+      console.warn(`No exact match found for ${artistName}`);
       return null;
     }
 
@@ -80,4 +119,5 @@ export const fetchArtistInfoByName = async (artistName, accessToken) => {
     console.error("Error fetching artist info:", error);
     return null;
   }
-}
+};
+

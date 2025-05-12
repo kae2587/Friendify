@@ -4,6 +4,7 @@ import "../App.css";
 import {
   fetchUserTopTracks,
   fetchUserTopArtists,
+  fetchArtistInfoByName,
 } from "../services/spotifyService";
 import {
   saveUserSpotifyData,
@@ -38,6 +39,8 @@ const getRandomIndices = (length, count = 10) => {
 
 const GenerateMatches = () => {
   const [allTopArtists, setAllTopArtists] = useState([]);
+  const [artistsStats, setArtistsStats] = useState([]);
+
   const [topMatches, setTopMatches] = useState([]);
   const [originalMatches, setOriginalMatches] = useState([]);
   const [topArtists, setTopArtists] = useState([]);
@@ -262,13 +265,31 @@ const GenerateMatches = () => {
   };
 
 
-  const handleGenerateClick = () => {
+  const handleGenerateClick = async () => {
     const currentUID = topMatches[currentIndex]?.uid;
     const matchedUser = allTopArtists.find((user) => user.uid === currentUID);
 
-  console.log("matched user", matchedUser);
-
     if (matchedUser) {
+
+
+
+      const enrichedArtists = await Promise.all(
+        matchedUser.topArtists.map(async (artistObj) => {
+          console.log("artist name",artistObj.name);
+          const info = await fetchArtistInfoByName(artistObj.name, accessToken);
+          console.log("artist info",info);
+
+          return info;
+        })
+      );
+
+
+
+
+
+      setArtistsStats(enrichedArtists);
+      console.log("artist Stats",enrichedArtists);
+
       setSpecificUser({
         userName: matchedUser.name,
         topArtists: matchedUser.topArtists,
@@ -277,6 +298,7 @@ const GenerateMatches = () => {
         profilePic: matchedUser.profilePic,
       });
     }
+
    setClickBut(true);
   };
 
@@ -313,12 +335,21 @@ const GenerateMatches = () => {
         <div className="top-artists">
           <h2>Top Artists</h2>
           <div className="artist-grid">
-            {specificUser.topArtists?.map((artist, index) => (
-              <div key={index} className="artist-item">
-                {/* <img src={artist.image} alt={artist.name} /> */}
-                <p>{artist.name}</p>
-              </div>
-            ))}
+          {specificUser.topArtists?.map((artist, index) => {
+  // Match the enriched artist info from artistsStats by name
+  const enriched = artistsStats.find((a) => a?.name === artist.name);
+
+      return (
+        <div key={index} className="artist-item">
+          <img
+            src={enriched?.image || "/default-artist.png"}
+            alt={artist.name}
+            className="artist-img"
+          />
+          <p>{artist.name}</p>
+        </div>
+      );
+    })}
           </div>
         </div>
       </div>
