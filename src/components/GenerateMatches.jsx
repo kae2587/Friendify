@@ -10,6 +10,11 @@ import {
   getAllUsersTopArtists,
 } from "../firebase/userData";
 import { auth } from "../firebase/firebase";
+import user1img from '../assets/user1.jpg';
+import user2img from '../assets/user2.jpg';
+import user3img from '../assets/user3.jpg';
+import user4img from '../assets/user4.jpg';
+
 
 // Utility: calculate cosine similarity
 const cosineSimilarity = (vecA, vecB) => {
@@ -39,6 +44,13 @@ const GenerateMatches = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [resetting, setResetting] = useState(false);
   const cardRefs = useRef({});
+  const profileImages = {
+    user1: user1img,
+    user2: user2img,
+    user3: user3img,
+    user4: user4img,
+  };
+
 
   useEffect(() => {
     const token = localStorage.getItem("spotify_access_token");
@@ -73,6 +85,7 @@ const GenerateMatches = () => {
         const artistsData = [
           {
             uid: "user1",
+            name: "Allison",
             topArtists: [
               { id: "1", name: "Taylor Swift" },
               { id: "2", name: "SZA" },
@@ -82,6 +95,7 @@ const GenerateMatches = () => {
           },
           {
             uid: "user2",
+            name: "David",
             topArtists: [
               { id: "1", name: "Taylor Swift" },
               { id: "2", name: "SZA" },
@@ -91,6 +105,7 @@ const GenerateMatches = () => {
           },
           {
             uid: "user3",
+            name: "Carmen",
             topArtists: [
               { id: "1", name: "Taylor Swift" },
               { id: "2", name: "SZA" },
@@ -131,7 +146,7 @@ const GenerateMatches = () => {
       .map((user) => {
         const otherVector = toVector(user.topArtists);
         const similarity = cosineSimilarity(currentUserVector, otherVector);
-        return { uid: user.uid, similarity };
+        return { uid: user.uid, name: user.name, similarity };
       })
       .filter((match) => match.similarity >= 0.7);
 
@@ -224,43 +239,51 @@ const GenerateMatches = () => {
     }, 300);
   };
 
-  return (
+
+  
+
+return (
     <div className="generate-page">
       <Header />
-      <div className="generate-content">
+      <div className="generate-content centered">
         <h2>These are your matches!</h2>
         {resetting ? (
-          <p>You're done! Restarting...</p>
+          <p>Restarting Matches...</p>
         ) : topMatches.length === 0 ? (
-          <p>No strong matches found in this sample.</p>
+          <p>No current matches, come back later.</p>
         ) : (
-          <div className="swipe-container">
-            <div
-              className="swipe-card"
+          <>
+            <div className="profile-card"
               ref={(el) => {
                 if (el) cardRefs.current[currentIndex] = el;
               }}
-              style={{ zIndex: 1 }}
               onMouseDown={(e) => handleDragStart(e, currentIndex)}
               onTouchStart={(e) => handleDragStart(e, currentIndex)}
               onMouseMove={(e) => handleDragMove(e, currentIndex)}
               onTouchMove={(e) => handleDragMove(e, currentIndex)}
               onMouseUp={(e) => handleDragEnd(e, currentIndex)}
               onTouchEnd={(e) => handleDragEnd(e, currentIndex)}
+              style={{ zIndex: 1 }}
             >
-              <h3>Match: {topMatches[currentIndex].uid}</h3>
-              <p>Similarity Score: {Math.round(topMatches[currentIndex].similarity * 100)}%</p>
+              <img
+                src={profileImages[topMatches[currentIndex]?.uid] || user1img}
+                alt="Profile"
+                className="profile-image"
+              />
+              <h3 className="profile-name">{topMatches[currentIndex]?.name}</h3>
+              <button className="view-profile">View Profile</button>
             </div>
-          </div>
-        )}
 
-        <div className="swipe-buttons">
-          <button onClick={() => handleArrowSwipe("left")}>&larr; Swipe Left</button>
-          <button onClick={() => handleArrowSwipe("right")}>&rarr; Swipe Right</button>
-        </div>
+            <div className="arrow-buttons">
+              <button className="arrow" onClick={() => handleArrowSwipe("left")}>←</button>
+              <button className="arrow" onClick={() => handleArrowSwipe("right")}>→</button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
 export default GenerateMatches;
+
