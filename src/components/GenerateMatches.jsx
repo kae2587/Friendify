@@ -16,6 +16,8 @@ import user3img from '../assets/user3.jpg';
 import user4img from '../assets/user4.jpg';
 
 
+
+
 // Utility: calculate cosine similarity
 const cosineSimilarity = (vecA, vecB) => {
   const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
@@ -43,6 +45,16 @@ const GenerateMatches = () => {
   const [accessToken, setAccessToken] = useState(localStorage.getItem("spotify_access_token"));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [resetting, setResetting] = useState(false);
+  const [clickBut, setClickBut] = useState(false);
+
+  const [specificUser, setSpecificUser] = useState({
+    userName: "",
+    topArtists: [],
+    instagram: "",
+    spotify: "",
+    profilePic: ""
+  });
+  
   const cardRefs = useRef({});
   const profileImages = {
     user1: user1img,
@@ -51,6 +63,7 @@ const GenerateMatches = () => {
     user4: user4img,
   };
 
+  
 
   useEffect(() => {
     const token = localStorage.getItem("spotify_access_token");
@@ -86,6 +99,9 @@ const GenerateMatches = () => {
           {
             uid: "user1",
             name: "Allison",
+            instagram: "@Allison.account12",
+            spotify: "AllisonListens",
+            profilePic: user1img,
             topArtists: [
               { id: "1", name: "Taylor Swift" },
               { id: "2", name: "SZA" },
@@ -96,6 +112,9 @@ const GenerateMatches = () => {
           {
             uid: "user2",
             name: "David",
+            instagram: "@David.account12",
+            spotify: "DavidSpot",
+            profilePic: user2img,
             topArtists: [
               { id: "1", name: "Taylor Swift" },
               { id: "2", name: "SZA" },
@@ -106,6 +125,9 @@ const GenerateMatches = () => {
           {
             uid: "user3",
             name: "Carmen",
+            instagram: "@Carmen.account12",
+            spotify: "CarmenListeningAcc",
+            profilePic: user3img,
             topArtists: [
               { id: "1", name: "Taylor Swift" },
               { id: "2", name: "SZA" },
@@ -240,50 +262,120 @@ const GenerateMatches = () => {
   };
 
 
-  
+  const handleGenerateClick = () => {
+    const currentUID = topMatches[currentIndex]?.uid;
+    const matchedUser = allTopArtists.find((user) => user.uid === currentUID);
 
-return (
-    <div className="generate-page">
-      <Header />
-      <div className="generate-content centered">
-        <h2>These are your matches!</h2>
-        {resetting ? (
-          <p>Restarting Matches...</p>
-        ) : topMatches.length === 0 ? (
-          <p>No current matches, come back later.</p>
-        ) : (
-          <>
-            <div className="profile-card"
-              ref={(el) => {
-                if (el) cardRefs.current[currentIndex] = el;
-              }}
-              onMouseDown={(e) => handleDragStart(e, currentIndex)}
-              onTouchStart={(e) => handleDragStart(e, currentIndex)}
-              onMouseMove={(e) => handleDragMove(e, currentIndex)}
-              onTouchMove={(e) => handleDragMove(e, currentIndex)}
-              onMouseUp={(e) => handleDragEnd(e, currentIndex)}
-              onTouchEnd={(e) => handleDragEnd(e, currentIndex)}
-              style={{ zIndex: 1 }}
-            >
-              <img
-                src={profileImages[topMatches[currentIndex]?.uid] || user1img}
-                alt="Profile"
-                className="profile-image"
-              />
-              <h3 className="profile-name">{topMatches[currentIndex]?.name}</h3>
-              <button className="view-profile">View Profile</button>
-            </div>
+  console.log("matched user", matchedUser);
 
-            <div className="arrow-buttons">
-              <button className="arrow" onClick={() => handleArrowSwipe("left")}>←</button>
-              <button className="arrow" onClick={() => handleArrowSwipe("right")}>→</button>
-            </div>
-          </>
-        )}
+    if (matchedUser) {
+      setSpecificUser({
+        userName: matchedUser.name,
+        topArtists: matchedUser.topArtists,
+        instagram: matchedUser.instagram,
+        spotify: matchedUser.spotify,
+        profilePic: matchedUser.profilePic,
+      });
+    }
+   setClickBut(true);
+  };
+
+  return (
+    clickBut ? (
+
+    <div className="spotify-container">
+       <Header />
+    <div className="profile-section">
+      <div className="profile-content">
+        <img
+          src={specificUser.profilePic || "/default-profile.png"}
+          alt="Profile Picture"
+          className="profile-image"
+        />
+        <div>
+          <h1>{specificUser.userName}'s Account</h1>
+          <p className="bio">A Bio</p>
+          <div className="social-buttons">
+            <p style={{ marginTop: 10 }}>
+              <strong>Linked Social Accounts</strong>
+            </p>
+            <button className="social-button">{specificUser.instagram}</button>
+            <button className="social-button">{specificUser.spotify}</button>
+          </div>
+        </div>
       </div>
     </div>
-  );
-};
 
+    <div className="stats-section">
+      <h1>In the Last Month...</h1>
+      <div className="stats-grid">
+        {/* Top Artists */}
+        <div className="top-artists">
+          <h2>Top Artists</h2>
+          <div className="artist-grid">
+            {specificUser.topArtists?.map((artist, index) => (
+              <div key={index} className="artist-item">
+                {/* <img src={artist.image} alt={artist.name} /> */}
+                <p>{artist.name}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    ) : (
+      <div className="generate-page">
+        <Header />
+        <div className="generate-content centered">
+          <h2>These are your matches!</h2>
+          {resetting ? (
+            <p>Restarting Matches...</p>
+          ) : topMatches.length === 0 ? (
+            <p>No current matches, come back later.</p>
+          ) : (
+            <>
+              <div
+                className="profile-card"
+                ref={(el) => {
+                  if (el) cardRefs.current[currentIndex] = el;
+                }}
+                onMouseDown={(e) => handleDragStart(e, currentIndex)}
+                onTouchStart={(e) => handleDragStart(e, currentIndex)}
+                onMouseMove={(e) => handleDragMove(e, currentIndex)}
+                onTouchMove={(e) => handleDragMove(e, currentIndex)}
+                onMouseUp={(e) => handleDragEnd(e, currentIndex)}
+                onTouchEnd={(e) => handleDragEnd(e, currentIndex)}
+                style={{ zIndex: 1 }}
+              >
+                <img
+                  src={profileImages[topMatches[currentIndex]?.uid] || user1img}
+                  alt="Profile"
+                  className="profile-image"
+                />
+                <h3 className="profile-name">
+                  {topMatches[currentIndex]?.name}
+                </h3>
+                <button className="view-profile" onClick={handleGenerateClick}>
+                  View Profile
+                </button>
+              </div>
+  
+              <div className="arrow-buttons">
+                <button className="arrow" onClick={() => handleArrowSwipe("left")}>
+                  ←
+                </button>
+                <button className="arrow" onClick={() => handleArrowSwipe("right")}>
+                  →
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    )
+  );
+}  
 export default GenerateMatches;
 

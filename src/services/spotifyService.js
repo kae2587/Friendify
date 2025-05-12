@@ -46,3 +46,38 @@ export const fetchUserTopArtists = async (accessToken) => {
     return [];
   }
 }
+
+
+export const fetchArtistInfoByName = async (artistName, accessToken) => {
+  try {
+  
+    const searchRes = await axios.get("https://api.spotify.com/v1/search", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      params: {
+        q: artistName,
+        type: "artist",
+        limit: 1,
+      },
+    });
+
+    const artist = searchRes.data.artists.items[0];
+    if (!artist) {
+      console.warn("Artist not found.");
+      return null;
+    }
+
+    return {
+      name: artist.name,
+      popularity: artist.popularity,
+      followers: artist.followers.total,
+      genres: artist.genres,
+      image: artist.images[0]?.url || null,
+      id: artist.id,
+    };
+  } catch (error) {
+    console.error("Error fetching artist info:", error);
+    return null;
+  }
+}

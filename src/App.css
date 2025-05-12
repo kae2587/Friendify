@@ -226,3 +226,63 @@ input {
   cursor: pointer;
   box-shadow: 0px 20px 10px rgba(0,0,0,0.3);
 }
+
+
+.specific-user-page {
+  padding: 2rem;
+  color: white;
+  background-color: #111;
+}
+
+.specific-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.specific-profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.specific-profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.month-header {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+.top-artists-section {
+  margin-top: 1rem;
+}
+
+.artist-circles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.artist-card {
+  text-align: center;
+  width: 100px;
+}
+
+.artist-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
