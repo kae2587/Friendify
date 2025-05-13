@@ -16,9 +16,6 @@ import user2img from '../assets/user2.jpg';
 import user3img from '../assets/user3.jpg';
 import user4img from '../assets/user4.jpg';
 
-
-
-
 // Utility: calculate cosine similarity
 const cosineSimilarity = (vecA, vecB) => {
   const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
@@ -389,7 +386,6 @@ const GenerateMatches = () => {
 
     ) : (
       <div className="generate-page">
-        <Header />
         <div className="generate-content centered">
           {resetting ? (
             <p>Restarting Matches...</p>

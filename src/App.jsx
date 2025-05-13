@@ -88,6 +88,7 @@ function App() {
     return (
       <>
         <div>
+          <div className="headerDiv"> <Header onLogout={handleFullLogout} /> </div>
           <GenerateMatches topArtists={topArtists} />
         </div>
       </>
