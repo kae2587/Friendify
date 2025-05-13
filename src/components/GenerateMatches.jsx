@@ -138,6 +138,45 @@ const GenerateMatches = () => {
               { id: "4", name: "Lorde" },
             ],
           },
+          {
+            uid: "user4",
+            name: "User4",
+            instagram: "@.account12",
+            spotify: "DavidSpot",
+            profilePic: user2img,
+            topArtists: [
+              { id: "1", name: "J. Cole" },
+              { id: "2", name: "SZA" },
+              { id: "3", name: "Kendrick Lamar" },
+              { id: "4", name: "MF DOOM" },
+            ],
+          },
+          {
+            uid: "user5",
+            name: "User5",
+            instagram: "@David.account12",
+            spotify: "DavidSpot",
+            profilePic: user2img,
+            topArtists: [
+              { id: "1", name: "J. Cole" },
+              { id: "2", name: "Beyonce" },
+              { id: "3", name: "UMI" },
+              { id: "4", name: "Kendrick Lamar" },
+            ],
+          },
+          {
+            uid: "user6",
+            name: "User6",
+            instagram: "@user6.account12",
+            spotify: "DavidSpot",
+            profilePic: user2img,
+            topArtists: [
+              { id: "1", name: "Megan Thee Stallion" },
+              { id: "2", name: "Beyonce" },
+              { id: "3", name: "SZA" },
+              { id: "4", name: "UMI" },
+            ],
+          },
         ];
         setAllTopArtists(artistsData);
       } catch (err) {
@@ -264,15 +303,11 @@ const GenerateMatches = () => {
     }, 300);
   };
 
-
   const handleGenerateClick = async () => {
     const currentUID = topMatches[currentIndex]?.uid;
     const matchedUser = allTopArtists.find((user) => user.uid === currentUID);
 
     if (matchedUser) {
-
-
-
       const enrichedArtists = await Promise.all(
         matchedUser.topArtists.map(async (artistObj) => {
           console.log("artist name",artistObj.name);
@@ -282,10 +317,6 @@ const GenerateMatches = () => {
           return info;
         })
       );
-
-
-
-
 
       setArtistsStats(enrichedArtists);
       console.log("artist Stats",enrichedArtists);
@@ -336,20 +367,20 @@ const GenerateMatches = () => {
           <h2>Top Artists</h2>
           <div className="artist-grid">
           {specificUser.topArtists?.map((artist, index) => {
-  // Match the enriched artist info from artistsStats by name
-  const enriched = artistsStats.find((a) => a?.name === artist.name);
+            // Match the enriched artist info from artistsStats by name
+            const enriched = artistsStats.find((a) => a?.name === artist.name);
 
-      return (
-        <div key={index} className="artist-item">
-          <img
-            src={enriched?.image || "/default-artist.png"}
-            alt={artist.name}
-            className="artist-img"
-          />
-          <p>{artist.name}</p>
-        </div>
-      );
-    })}
+                return (
+                  <div key={index} className="artist-item">
+                    <img
+                      src={enriched?.image || "/default-artist.png"}
+                      alt={artist.name}
+                      className="artist-img"
+                    />
+                    <p>{artist.name}</p>
+                  </div>
+                );
+          })}
           </div>
         </div>
       </div>
@@ -360,13 +391,13 @@ const GenerateMatches = () => {
       <div className="generate-page">
         <Header />
         <div className="generate-content centered">
-          <h2>These are your matches!</h2>
           {resetting ? (
             <p>Restarting Matches...</p>
           ) : topMatches.length === 0 ? (
-            <p>No current matches, come back later.</p>
+            <p>No current matches, please come back later!</p>
           ) : (
             <>
+              <h2>These are your matches!</h2>
               <div
                 className="profile-card"
                 ref={(el) => {
