@@ -10,6 +10,7 @@ import { saveUserSpotifyData } from "./firebase/userData";
 import { auth } from "./firebase/firebase"; //to get currentUser
 
 import "./App.css";
+import ProfileSection from "./components/ProfileSection";
 
 function App() {
   const [user, setUser] = useState(null); //Firebase user
@@ -105,6 +106,7 @@ function App() {
       ) : ( //logged in + connected --> show stats
         <>
         <div className="headerDiv"> <Header /> </div>
+        <ProfileSection />
         <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
         <button className="logoutButton" onClick={handleFullLogout}>Logout</button>
       </>

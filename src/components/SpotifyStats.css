@@ -13,16 +13,6 @@
   background-color: #f8f8f8; /* Or whatever your background is */
 }
 
-.spotify-container {
-  max-width: 1700px;
-  width: 100%;
-  padding: 40px;
-  margin: 0 auto; /* Center it */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .profile-section {
   border-radius: 20px;
   padding: 40px;
@@ -33,6 +23,7 @@
   justify-content: center;
   max-width: none;
   margin: 10px;
+  margin-top: 200px;
 }
 
 .header-section {
@@ -50,9 +41,10 @@
   flex-wrap: wrap;
 }
 
-
-.spotify-container h1 {
-  font-size: 32px;
+h1 {
+  font-size: 36px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
 }
 
 .profile-image {
@@ -60,6 +52,8 @@
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
+  border: 10px #340b4a solid;
+  transition: transform 0.3s ease;
 }
 
 .bio {
@@ -67,6 +61,8 @@
   font-size: 0.9rem;
   max-width: 400px;
   margin: 5px;
+  align-items: center;
+  justify-content: center;
 }
 
 .edit-button {
@@ -98,7 +94,19 @@
   transform: scale(1.05);
 }
 
-/* Grid Layout */
+/* Spotify Section */
+.spotify-container {
+  max-width: 1700px;
+  width: 100%;
+  padding: 40px;
+  margin: 0 auto; /* Center it */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px #ad49e1 solid;
+  border-radius: 50px;
+}
+
 .stats-grid {
   display: flex;
   justify-content: space-between;
@@ -156,7 +164,7 @@
   padding: 15px;
   width: 100%;
   max-width: 600px;
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .song-item img {
