@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import Header from "./Header";
 import "../App.css";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+
 import {
   fetchUserTopTracks,
   fetchUserTopArtists,
@@ -11,6 +13,7 @@ import {
   getAllUsersTopArtists,
 } from "../firebase/userData";
 import { auth } from "../firebase/firebase";
+
 import user1img from '../assets/user1.jpg';
 import user2img from '../assets/user2.jpg';
 import user3img from '../assets/user3.jpg';
@@ -62,8 +65,6 @@ const GenerateMatches = () => {
     user3: user3img,
     user4: user4img,
   };
-
-  
 
   useEffect(() => {
     const token = localStorage.getItem("spotify_access_token");
@@ -143,9 +144,9 @@ const GenerateMatches = () => {
             profilePic: user2img,
             topArtists: [
               { id: "1", name: "J. Cole" },
-              { id: "2", name: "SZA" },
+              { id: "2", name: "Beyonce" },
               { id: "3", name: "Kendrick Lamar" },
-              { id: "4", name: "MF DOOM" },
+              { id: "4", name: "Megan Thee Stallion" },
             ],
           },
           {
@@ -157,8 +158,8 @@ const GenerateMatches = () => {
             topArtists: [
               { id: "1", name: "J. Cole" },
               { id: "2", name: "Beyonce" },
-              { id: "3", name: "UMI" },
-              { id: "4", name: "Kendrick Lamar" },
+              { id: "3", name: "Kendrick Lamar" },
+              { id: "4", name: "Megan Thee Stallion" },
             ],
           },
           {
@@ -394,39 +395,39 @@ const GenerateMatches = () => {
           ) : (
             <>
               <h2>These are your matches!</h2>
-              <div
-                className="profile-card"
-                ref={(el) => {
-                  if (el) cardRefs.current[currentIndex] = el;
-                }}
-                onMouseDown={(e) => handleDragStart(e, currentIndex)}
-                onTouchStart={(e) => handleDragStart(e, currentIndex)}
-                onMouseMove={(e) => handleDragMove(e, currentIndex)}
-                onTouchMove={(e) => handleDragMove(e, currentIndex)}
-                onMouseUp={(e) => handleDragEnd(e, currentIndex)}
-                onTouchEnd={(e) => handleDragEnd(e, currentIndex)}
-                style={{ zIndex: 1 }}
-              >
-                <img
-                  src={profileImages[topMatches[currentIndex]?.uid] || user1img}
-                  alt="Profile"
-                  className="profile-image"
-                />
-                <h3 className="profile-name">
-                  {topMatches[currentIndex]?.name}
-                </h3>
-                <button className="view-profile" onClick={handleGenerateClick}>
-                  View Profile
-                </button>
-              </div>
-  
-              <div className="arrow-buttons">
-                <button className="arrow" onClick={() => handleArrowSwipe("left")}>
-                  ←
-                </button>
-                <button className="arrow" onClick={() => handleArrowSwipe("right")}>
-                  →
-                </button>
+              <div className="cards-container">
+                  <button className="arrow" onClick={() => handleArrowSwipe("left")}>
+                    <ArrowLeft size={32} />
+                  </button>
+
+                  <div className="profile-card"
+                    ref={(el) => {
+                      if (el) cardRefs.current[currentIndex] = el;
+                    }}
+                    onMouseDown={(e) => handleDragStart(e, currentIndex)}
+                    onTouchStart={(e) => handleDragStart(e, currentIndex)}
+                    onMouseMove={(e) => handleDragMove(e, currentIndex)}
+                    onTouchMove={(e) => handleDragMove(e, currentIndex)}
+                    onMouseUp={(e) => handleDragEnd(e, currentIndex)}
+                    onTouchEnd={(e) => handleDragEnd(e, currentIndex)}
+                    style={{ zIndex: 1 }}
+                  >
+                    <img
+                      src={profileImages[topMatches[currentIndex]?.uid] || user1img}
+                      alt="Profile"
+                      className="profile-image"
+                    />
+                    <h3 className="profile-name">
+                      {topMatches[currentIndex]?.name}
+                    </h3>
+                    <button className="view-profile" onClick={handleGenerateClick}>
+                      View Profile
+                    </button>
+                  </div>
+
+                  <button className="arrow" onClick={() => handleArrowSwipe("right")}>
+                    <ArrowRight size={32} />
+                  </button>
               </div>
             </>
           )}

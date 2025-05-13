@@ -4,10 +4,6 @@ import "./Header.css";
 import logo from '../assets/logo.png';
 
 const Header = ({ onLogout }) => {
-  // const handleGenerateClick = () => {
-  //   window.location.href = "/generate-matches"; topArtists={topArtists}
-  // };
-
   const location = useLocation();
   const navigate = useNavigate();
 
