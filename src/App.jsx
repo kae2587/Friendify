@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchUserTopTracks, fetchUserTopArtists } from "./services/spotifyService";
 import { loginWithSpotify, logoutSpotify } from "./services/spotifyAuth";
+
+import { Routes, Route } from "react-router-dom";
 import AuthForm from "./components/AuthForm";
 import SpotifyStats from "./components/SpotifyStats";
 import Header from "./components/Header";
@@ -83,18 +85,6 @@ function App() {
     });
   };
 
-  const currentPath = window.location.pathname;
-  if (currentPath === "/generate-matches") {
-    return (
-      <>
-        <div>
-          <div className="headerDiv"> <Header onLogout={handleFullLogout} /> </div>
-          <GenerateMatches topArtists={topArtists} />
-        </div>
-      </>
-    );
-  }
-
   return (
     <div>
       {!user ? ( //not logged in --> show Firebase auth form
@@ -107,10 +97,16 @@ function App() {
       ) : ( //logged in + connected --> show stats
         <>
         <div className="headerDiv"> <Header onLogout={handleFullLogout} /> </div>
-        <div className="page-wrapper">
-          <ProfileSection />
-          <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
-        </div>
+        <Routes>
+          <Route path="/" element={
+              <div className="page-wrapper">
+                <ProfileSection />
+                <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
+              </div>
+            }
+          />
+          <Route path="/generate-matches" element={<GenerateMatches topArtists={topArtists} />}/>
+        </Routes>
       </>
       )}
     </div>
