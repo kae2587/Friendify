@@ -10,11 +10,11 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
   const [topMonth, setTopMonth] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
-    name: "User's Name",
-    bio: "A Bio",
+    name: "Add a Name",
+    bio: "Add a Bio",
     profilePicture: image,
-    instagram: "@instagram_username",
-    spotifyName: "Spotify Name"
+    instagram: "Add an Instagram Username",
+    spotifyName: "Add a Spotify Username"
   });
 
   useEffect(() => {
@@ -44,6 +44,8 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
   };
 
   const handleSave = async () => {
+    console.log("handleSave called");
+    console.log("Profile Data:", profileData);
     try {
       if (auth.currentUser) {
         await updateUserData(auth.currentUser.uid, {
@@ -54,10 +56,6 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
     } catch (error) {
       console.error("Error saving profile:", error);
     }
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
   };
 
   const handleInputChange = (e) => {
@@ -146,8 +144,8 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
                 placeholder="Link your Spotify Username"
               />
               <div className="edit-buttons">
-                {/* <button onClick={handleSave}>Save</button> */}
-                <button onClick={handleCancel}>Close</button>
+                <button onClick={handleSave}>Save</button>
+                {/* <button onClick={handleCancel}>Save</button> */}
               </div>
             </div>
           </div>

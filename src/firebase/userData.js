@@ -33,7 +33,6 @@ export const saveUserProfile = async (uid, profile) => {
   });
 };
 
-
 export const getAllUsersTopArtists = async () => {
   console.log("Hello");
 
@@ -41,10 +40,7 @@ export const getAllUsersTopArtists = async () => {
     const usersRef = collection(db, "users");
     const snapshot = await getDocs(usersRef);
    
-
     const topArtistsData = [];
-
-
 
     snapshot.forEach((doc) => {
       const data = doc.data();
@@ -55,7 +51,6 @@ export const getAllUsersTopArtists = async () => {
         });
       }
     });
-
    
     return topArtistsData;
   } catch (error) {

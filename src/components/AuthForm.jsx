@@ -9,7 +9,6 @@ const AuthForm = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [signUpBut, setSignUpBut] = useState(false); // lowercase
 
-
   const handleSignUp = () => {
     setSignUpBut(true); // just open the signup form
   };
@@ -22,8 +21,6 @@ const AuthForm = () => {
       console.error("Signup error:", err);
     }
   };
-  
- 
 
   const handleLogIn = async () => {
     try {
@@ -34,11 +31,7 @@ const AuthForm = () => {
     }
   };
 
-
-
-
   return (
-
     !signUpBut ? (  
     <div>
       <div>
@@ -71,11 +64,7 @@ const AuthForm = () => {
         </p>
       </div>
     </div>
-
-
-
-            ):
-            (
+    ):(
     <div>
       <div>
         <h2 style={{ margin: '25px' }}>Create a <span style={{ color: '#ad49e1' }}>Friendify</span> Account!</h2>
@@ -90,8 +79,7 @@ const AuthForm = () => {
       
     </div>
 
-
-            )
+    )
           
   );
 };

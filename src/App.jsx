@@ -17,9 +17,6 @@ function App() {
   const [topArtists, setTopArtists] = useState([]);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("spotify_access_token"));
   
-
-
-
   //Firebase login
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
@@ -39,10 +36,6 @@ function App() {
         window.location.hash = ""; //clean URL
       }
     }
-
-
-  
-
   }, []);
 
   //fetch & save Spotify data to Firestore
@@ -72,7 +65,6 @@ function App() {
           topArtists: artists,
         });
 
-
       } catch (err) {
         console.error("Error saving to Firebase:", err);
       }
@@ -90,23 +82,16 @@ function App() {
     });
   };
 
-
   const currentPath = window.location.pathname;
   if (currentPath === "/generate-matches") {
     return (
       <>
-
-
         <div>
-        <GenerateMatches topArtists={topArtists} />
+          <GenerateMatches topArtists={topArtists} />
         </div>
       </>
     );
   }
-
-
-
-
 
   return (
     <div>
@@ -119,19 +104,13 @@ function App() {
         </div>
       ) : ( //logged in + connected --> show stats
         <>
-        <div className="headerDiv">
-          <Header />
-        </div>
+        <div className="headerDiv"> <Header /> </div>
         <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
-        <button className="LogOutBut" onClick={handleFullLogout}>Logout</button>
+        <button className="logoutButton" onClick={handleFullLogout}>Logout</button>
       </>
       )}
     </div>
   );
-
-
- 
-  
 }
 
 export default App;

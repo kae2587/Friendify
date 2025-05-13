@@ -23,15 +23,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
-
-
-
+import logo from '../assets/logo.png';
 
 const Header = () => {
-
     const handleGenerateClick = () => {
         window.location.href = "/generate-matches"; topArtists={topArtists}
-       
       };
 
       const handleFriendClick = () => {
@@ -41,10 +37,14 @@ const Header = () => {
   return (
     <div className="header-banner">
       <div className="header-left">
-      <button className="logo-button" onClick={handleFriendClick}>
-      <h1 className="logo">FRIENDIFY</h1>
-    </button>
-
+        <button className="logo-button" onClick={handleFriendClick}>
+          <img 
+            src={logo}
+            alt="Friendify"
+            className="logo"
+          />
+          {/* <h1 className="logo">FRIENDIFY</h1> */}
+        </button>
       </div>
       <button className="header-button" onClick={handleGenerateClick}>Generate Matches</button>
     </div>

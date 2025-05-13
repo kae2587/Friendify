@@ -42,6 +42,10 @@ button {
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+logoutButton {
+  margin-bottom: 200px;
+}
+
 button:hover {
   background-color: white;
   color: #ad49e1;
@@ -64,7 +68,6 @@ input {
   font-size: 16px;
   margin-bottom: 20px;
 }
-
 
 .page-wrapper {
   width: 100%; /* full screen width */
