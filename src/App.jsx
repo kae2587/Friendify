@@ -105,10 +105,11 @@ function App() {
         </div>
       ) : ( //logged in + connected --> show stats
         <>
-        <div className="headerDiv"> <Header /> </div>
-        <ProfileSection />
-        <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
-        <button className="logoutButton" onClick={handleFullLogout}>Logout</button>
+        <div className="headerDiv"> <Header onLogout={handleFullLogout} /> </div>
+        <div className="page-wrapper">
+          <ProfileSection />
+          <SpotifyStats topTracks={topTracks} topArtists={topArtists} />
+        </div>
       </>
       )}
     </div>

@@ -78,15 +78,15 @@ const ProfileSection = () => {
     <div className="profile-section">
     <div className="profile-content">
         <img src={profileData.profilePicture} alt="Profile Picture" className="profile-image" />
-        <div>
-        <h1>{profileData.name}</h1>
-        <p className="bio">{profileData.bio}</p>
-        <div className="social-buttons">
-            <p style={{marginTop: 10}}><strong>Linked Social Accounts</strong></p>
-            <button className="social-button">{profileData.instagram}</button>
-            <button className="social-button">{profileData.spotifyName}</button>
-        </div>
-        <button className="edit-button" onClick={handleEdit}>Edit Profile</button>
+        <div className="profile-text">
+            <h1>{profileData.name}</h1>
+            <p className="bio">{profileData.bio}</p>
+            <div className="social-buttons">
+                <p style={{marginTop: 10}}><strong>Linked Social Accounts</strong></p>
+                <button className="social-button">{profileData.instagram}</button>
+                <button className="social-button">{profileData.spotifyName}</button>
+            </div>
+            <button className="edit-button" onClick={handleEdit}>Edit Profile</button>
         </div>
 
         {isEditing && (

@@ -25,14 +25,14 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from '../assets/logo.png';
 
-const Header = () => {
-    const handleGenerateClick = () => {
-        window.location.href = "/generate-matches"; topArtists={topArtists}
-      };
+const Header = ({ onLogout }) => {
+  const handleGenerateClick = () => {
+    window.location.href = "/generate-matches"; topArtists={topArtists}
+  };
 
-      const handleFriendClick = () => {
-        window.location.href = "/";
-      }
+  const handleFriendClick = () => {
+    window.location.href = "/";
+  }
 
   return (
     <div className="header-banner">
@@ -43,10 +43,12 @@ const Header = () => {
             alt="Friendify"
             className="logo"
           />
-          {/* <h1 className="logo">FRIENDIFY</h1> */}
         </button>
       </div>
-      <button className="header-button" onClick={handleGenerateClick}>Generate Matches</button>
+      <div className="header-right">
+        <button className="header-button" onClick={handleGenerateClick}>Generate Matches</button>
+        <button className="header-button" onClick={onLogout}>Logout</button>
+      </div>
     </div>
   );
 };

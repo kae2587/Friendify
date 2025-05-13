@@ -1,14 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import "./SpotifyStats.css";
-import Header from "./Header";
 import image from '../assets/tempProfilePicture.jpg';
 import { auth } from "../firebase/firebase";
 import { getUserData, updateUserData } from "../firebase/userData";
 
 const SpotifyStats = ({ topArtists, topTracks }) => {
   const [topMonth, setTopMonth] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
     name: "Add a Name",
     bio: "Add a Bio",
@@ -38,47 +36,6 @@ const SpotifyStats = ({ topArtists, topTracks }) => {
     };
     fetchProfileData();
   }, []);
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleSave = async () => {
-    console.log("handleSave called");
-    console.log("Profile Data:", profileData);
-    try {
-      if (auth.currentUser) {
-        await updateUserData(auth.currentUser.uid, {
-          profile: profileData
-        });
-      }
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Error saving profile:", error);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileData(prev => ({
-          ...prev,
-          profilePicture: reader.result
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   return (
     <div className="spotify-container">
