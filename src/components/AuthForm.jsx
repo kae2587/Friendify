@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signUp, login } from "../firebase/auth"; // <-- use your own helpers
 import Header from "./Header";
 import "../App.css";
+import logo from '../assets/logo.png';
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +36,7 @@ const AuthForm = () => {
     !signUpBut ? (  
     <div>
       <div>
+        <img src={logo} alt="Friendify" className="logo" style={{ height: 90 }} />
         <h2 style={{ margin: '25px' }}>Welcome to <span style={{ color: '#ad49e1' }}>Friendify</span>!</h2>
         <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
         <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" />
@@ -45,7 +47,7 @@ const AuthForm = () => {
       <div>
         <p style={{ margin: '10px' }}>
           <strong>
-            Don't have an account?{' '}
+            Don't have an account yet?{' '}
             <span
               style={{
                 cursor: 'pointer',
