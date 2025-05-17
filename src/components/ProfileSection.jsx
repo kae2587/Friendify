@@ -14,8 +14,8 @@ const ProfileSection = () => {
     name: "Add a Name",
     bio: "Add a Bio",
     profilePicture: image,
-    instagram: "Add an Instagram Username",
-    spotifyName: "Add a Spotify Username"
+    instagram: "Instagram Username",
+    spotifyName: "Spotify Username"
   });
 
   useEffect(() => {
@@ -85,12 +85,12 @@ const ProfileSection = () => {
             <div className="social-buttons">
                 <p style={{marginTop: 10}}><strong>Social Accounts</strong></p>
                 <button className="social-button"
-                onClick={() => window.open(`https://www.instagram.com/${profileData.instagram}`, '_blank')}>
+                  onClick={() => window.open(`https://www.instagram.com/${profileData.instagram}`, '_blank')}>
                   <FaInstagram class="icon" />
                   @{profileData.instagram}
                 </button>
                 <button className="social-button"
-                onClick={() => window.open(`https://open.spotify.com/user/${profileData.spotifyName}`, '_blank')}>
+                  onClick={() => window.open(`https://open.spotify.com/user/${profileData.spotifyName}`, '_blank')}>
                   <FaSpotify class="icon" />
                   on Spotify
                 </button>

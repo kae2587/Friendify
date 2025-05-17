@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Header from "./Header";
 import "../App.css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { FaInstagram, FaSpotify } from 'react-icons/fa';
 
 import {
   fetchUserTopTracks,
@@ -14,6 +15,7 @@ import {
 } from "../firebase/userData";
 import { auth } from "../firebase/firebase";
 
+import tempProfilePicture from '../assets/tempProfilePicture.jpg';
 import user1img from '../assets/user1.jpg';
 import user2img from '../assets/user2.jpg';
 import user3img from '../assets/user3.jpg';
@@ -56,10 +58,10 @@ const GenerateMatches = () => {
     topArtists: [],
     instagram: "",
     spotify: "",
-    profilePic: ""
+    profilePic: "",
+    bio: ""
   });
   
-  const cardRefs = useRef({});
   const profileImages = {
     user1: user1img,
     user2: user2img,
@@ -140,28 +142,30 @@ const GenerateMatches = () => {
           },
           {
             uid: "user4",
-            name: "User4 Name",
+            name: "Another Parnika",
             instagram: "parnika__c",
+            bio: "Another Parnika's Bio - still building Friendify!",
             spotify: "ksz239vziy62jv92szo9h8vnm",
             profilePic: user4img,
             topArtists: [
               { id: "1", name: "J. Cole" },
               { id: "2", name: "Beyoncé" },
               { id: "3", name: "Kendrick Lamar" },
-              { id: "4", name: "Megan Thee Stallion" },
+              { id: "4", name: "Tyler, The Creator" },
             ],
           },
           {
             uid: "user5",
-            name: "User5 Name",
+            name: "Parnika 2.0",
             instagram: "parnika__c",
             spotify: "ksz239vziy62jv92szo9h8vnm",
+            bio: "Hi! I love listening to music",
             profilePic: user5img,
             topArtists: [
               { id: "1", name: "J. Cole" },
               { id: "2", name: "Beyoncé" },
               { id: "3", name: "Kendrick Lamar" },
-              { id: "4", name: "Megan Thee Stallion" },
+              { id: "4", name: "MF DOOM" },
             ],
           },
         ];
@@ -218,78 +222,6 @@ const GenerateMatches = () => {
     }
   }, [topMatches, originalMatches]);
 
-  const handleDragStart = (e, i) => {
-    const card = cardRefs.current[i];
-    card.startX = e.clientX || e.touches[0].clientX;
-  };
-
-  const handleDragMove = (e, i) => {
-    const card = cardRefs.current[i];
-    if (!card.startX) return;
-    const x = (e.clientX || e.touches[0].clientX) - card.startX;
-    card.style.transform = `translateX(${x}px) rotate(${x / 10}deg)`;
-    card.x = x;
-  };
-
-  const handleDragEnd = (e, i) => {
-    const card = cardRefs.current[i];
-    const threshold = 100;
-
-    if (card.x > threshold || card.x < -threshold) {
-      card.style.transition = "transform 0.3s ease-out";
-      card.style.transform = `translateX(${card.x > 0 ? 1000 : -1000}px) rotate(${card.x / 10}deg)`;
-
-      setTimeout(() => {
-        card.style.transition = "none";
-        card.style.transform = "none";
-        card.startX = null;
-        card.x = 0;
-
-        setTopMatches((prev) => {
-          const newDeck = [...prev];
-          newDeck.splice(i, 1);
-          return newDeck;
-        });
-
-        setCurrentIndex(0);
-      }, 300);
-    } else {
-      card.style.transition = "transform 0.2s ease";
-      card.style.transform = "translateX(0px) rotate(0deg)";
-      setTimeout(() => {
-        card.style.transition = "none";
-      }, 200);
-    }
-
-    card.startX = null;
-    card.x = 0;
-  };
-
-  const handleArrowSwipe = (direction) => {
-    const i = currentIndex;
-    const card = cardRefs.current[i];
-    if (!card) return;
-
-    const swipeDistance = direction === "left" ? -1000 : 1000;
-    card.style.transition = "transform 0.3s ease-out";
-    card.style.transform = `translateX(${swipeDistance}px) rotate(${swipeDistance / 10}deg)`;
-
-    setTimeout(() => {
-      card.style.transition = "none";
-      card.style.transform = "none";
-      card.startX = null;
-      card.x = 0;
-
-      setTopMatches((prev) => {
-        const newDeck = [...prev];
-        newDeck.splice(i, 1);
-        return newDeck;
-      });
-
-      setCurrentIndex(0);
-    }, 300);
-  };
-
   const handleGenerateClick = async () => {
     const currentUID = topMatches[currentIndex]?.uid;
     const matchedUser = allTopArtists.find((user) => user.uid === currentUID);
@@ -314,10 +246,23 @@ const GenerateMatches = () => {
         instagram: matchedUser.instagram,
         spotify: matchedUser.spotify,
         profilePic: matchedUser.profilePic,
+        bio: matchedUser.bio,
       });
     }
 
    setClickBut(true);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 1 < topMatches.length ? prevIndex + 1 : 0
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 1 >= 0 ? prevIndex - 1 : topMatches.length - 1
+    );
   };
 
   return (
@@ -326,13 +271,21 @@ const GenerateMatches = () => {
       <div className="profile-section">
         <div className="profile-content another-user">
           <img src={specificUser.profilePic || "/default-profile.png"} alt="Profile Picture" className="profile-image" />
-          <div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
             <h1>{specificUser.userName}</h1>
-            <p className="bio">A Bio</p>
+            <p className="bio">{specificUser.bio || "No bio provided."}</p>
             <div className="social-buttons">
               <p style={{ marginTop: 10 }}> <strong>{specificUser.userName ? `Connect with ${specificUser.userName}` : 'Connect'}! </strong></p>
-              <button className="social-button">{specificUser.instagram}</button>
-              <button className="social-button">{specificUser.spotify}</button>
+              <button className="social-button"
+                onClick={() => window.open(`https://www.instagram.com/${specificUser.instagram}`, '_blank')}>
+                <FaInstagram class="icon" />
+                @{specificUser.instagram}
+              </button>
+              <button className="social-button"
+                onClick={() => window.open(`https://open.spotify.com/user/${specificUser.spotifyName}`, '_blank')}>
+                <FaSpotify class="icon" />
+                on Spotify
+              </button>
             </div>
           </div>
         </div>
@@ -375,24 +328,13 @@ const GenerateMatches = () => {
             <>
               <h2 className="matches-title">Meet your matches!</h2>
               <div className="cards-container">
-                <button className="arrow" onClick={() => handleArrowSwipe("left")}>
+                <button className="arrow" onClick={handlePrev}>
                   <ArrowLeft size={32} />
                 </button>
 
-                <div className="profile-card"
-                  ref={(el) => {
-                    if (el) cardRefs.current[currentIndex] = el;
-                  }}
-                  onMouseDown={(e) => handleDragStart(e, currentIndex)}
-                  onTouchStart={(e) => handleDragStart(e, currentIndex)}
-                  onMouseMove={(e) => handleDragMove(e, currentIndex)}
-                  onTouchMove={(e) => handleDragMove(e, currentIndex)}
-                  onMouseUp={(e) => handleDragEnd(e, currentIndex)}
-                  onTouchEnd={(e) => handleDragEnd(e, currentIndex)}
-                  style={{ zIndex: 1 }}
-                >
+                <div className="profile-card">
                   <img
-                    src={profileImages[topMatches[currentIndex]?.uid] || user1img}
+                    src={profileImages[topMatches[currentIndex]?.uid] || tempProfilePicture}
                     alt="Profile"
                     className="profile-image"
                   />
@@ -404,7 +346,7 @@ const GenerateMatches = () => {
                   </button>
                 </div>
 
-                <button className="arrow" onClick={() => handleArrowSwipe("right")}>
+                <button className="arrow" onClick={handleNext}>
                   <ArrowRight size={32} />
                 </button>
               </div>
