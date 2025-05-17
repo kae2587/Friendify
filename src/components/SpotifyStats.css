@@ -117,6 +117,13 @@ h1 {
   transform: scale(1.05);
 }
 
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  size: 20;
+  margin-right: 10px;
+}
+
 /* Spotify Section */
 .spotify-container {
   max-width: 1700px;

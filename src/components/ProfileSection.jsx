@@ -5,6 +5,7 @@ import "./SpotifyStats.css";
 import image from '../assets/tempProfilePicture.jpg';
 import { auth } from "../firebase/firebase";
 import { getUserData, updateUserData } from "../firebase/userData";
+import { FaInstagram, FaSpotify } from 'react-icons/fa';
 
 const ProfileSection = () => {
 //   const [topMonth, setTopMonth] = useState("");
@@ -82,9 +83,17 @@ const ProfileSection = () => {
             <h1>{profileData.name}</h1>
             <p className="bio">{profileData.bio}</p>
             <div className="social-buttons">
-                <p style={{marginTop: 10}}><strong>Linked Social Accounts</strong></p>
-                <button className="social-button">{profileData.instagram}</button>
-                <button className="social-button">{profileData.spotifyName}</button>
+                <p style={{marginTop: 10}}><strong>Social Accounts</strong></p>
+                <button className="social-button"
+                onClick={() => window.open(`https://www.instagram.com/${profileData.instagram}`, '_blank')}>
+                  <FaInstagram class="icon" />
+                  @{profileData.instagram}
+                </button>
+                <button className="social-button"
+                onClick={() => window.open(`https://open.spotify.com/user/${profileData.spotifyName}`, '_blank')}>
+                  <FaSpotify class="icon" />
+                  on Spotify
+                </button>
             </div>
             <button className="edit-button" onClick={handleEdit}>Edit Profile</button>
         </div>
@@ -103,7 +112,7 @@ const ProfileSection = () => {
               />
               <div className="file-input-container">
                 <label htmlFor="file-upload" className="file-input-label">
-                  Upload Profile Picture
+                  <strong>Upload Profile Picture</strong>
                 </label>
                 <input
                   id="file-upload"
@@ -136,7 +145,6 @@ const ProfileSection = () => {
               />
               <div className="edit-buttons">
                 <button onClick={handleSave}>Save</button>
-                {/* <button onClick={handleCancel}>Save</button> */}
               </div>
             </div>
           </div>

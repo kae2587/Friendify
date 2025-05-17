@@ -18,6 +18,7 @@ import user1img from '../assets/user1.jpg';
 import user2img from '../assets/user2.jpg';
 import user3img from '../assets/user3.jpg';
 import user4img from '../assets/user4.jpg';
+import user5img from '../assets/user5.jpg';
 
 // Utility: calculate cosine similarity
 const cosineSimilarity = (vecA, vecB) => {
@@ -64,6 +65,7 @@ const GenerateMatches = () => {
     user2: user2img,
     user3: user3img,
     user4: user4img,
+    user5: user5img,
   };
 
   useEffect(() => {
@@ -139,9 +141,9 @@ const GenerateMatches = () => {
           {
             uid: "user4",
             name: "User4 Name",
-            instagram: "@.account12",
-            spotify: "DavidSpot",
-            profilePic: user2img,
+            instagram: "parnika__c",
+            spotify: "ksz239vziy62jv92szo9h8vnm",
+            profilePic: user4img,
             topArtists: [
               { id: "1", name: "J. Cole" },
               { id: "2", name: "Beyoncé" },
@@ -152,27 +154,14 @@ const GenerateMatches = () => {
           {
             uid: "user5",
             name: "User5 Name",
-            instagram: "@David.account12",
-            spotify: "DavidSpot",
-            profilePic: user2img,
+            instagram: "parnika__c",
+            spotify: "ksz239vziy62jv92szo9h8vnm",
+            profilePic: user5img,
             topArtists: [
               { id: "1", name: "J. Cole" },
               { id: "2", name: "Beyoncé" },
               { id: "3", name: "Kendrick Lamar" },
               { id: "4", name: "Megan Thee Stallion" },
-            ],
-          },
-          {
-            uid: "user6",
-            name: "User6",
-            instagram: "@user6.account12",
-            spotify: "DavidSpot",
-            profilePic: user2img,
-            topArtists: [
-              { id: "1", name: "Megan Thee Stallion" },
-              { id: "2", name: "Beyoncé" },
-              { id: "3", name: "SZA" },
-              { id: "4", name: "UMI" },
             ],
           },
         ];

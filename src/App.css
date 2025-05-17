@@ -133,7 +133,7 @@ input {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #b461e1;
+  background: #ad49e1;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -221,7 +221,7 @@ input {
   margin-top: 10px;
   padding: 12px 24px;
   font-size: 1rem;
-  background-color: #b461e1;
+  background-color: #ad49e1;
   color: white;
   border: none;
   border-radius: 10px;
@@ -236,7 +236,7 @@ input {
 }
 
 .arrow {
-  background-color: #b461e1;
+  background-color: #ad49e1;
   border: none;
   border-radius: 50%;
   width: 50px;
