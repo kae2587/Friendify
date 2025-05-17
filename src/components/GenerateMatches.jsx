@@ -3,6 +3,7 @@ import Header from "./Header";
 import "../App.css";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FaInstagram, FaSpotify } from 'react-icons/fa';
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   fetchUserTopTracks,
@@ -52,6 +53,7 @@ const GenerateMatches = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [resetting, setResetting] = useState(false);
   const [clickBut, setClickBut] = useState(false);
+  const [direction, setDirection] = useState(1);
 
   const [specificUser, setSpecificUser] = useState({
     userName: "",
@@ -254,12 +256,14 @@ const GenerateMatches = () => {
   };
 
   const handleNext = () => {
+    setDirection(1);
     setCurrentIndex((prevIndex) =>
       prevIndex + 1 < topMatches.length ? prevIndex + 1 : 0
     );
   };
 
   const handlePrev = () => {
+    setDirection(-1);
     setCurrentIndex((prevIndex) =>
       prevIndex - 1 >= 0 ? prevIndex - 1 : topMatches.length - 1
     );
@@ -332,19 +336,41 @@ const GenerateMatches = () => {
                   <ArrowLeft size={32} />
                 </button>
 
-                <div className="profile-card">
-                  <img
-                    src={profileImages[topMatches[currentIndex]?.uid] || tempProfilePicture}
-                    alt="Profile"
-                    className="profile-image"
-                  />
-                  <h3 className="profile-name">
-                    {topMatches[currentIndex]?.name}
-                  </h3>
-                  <button className="view-profile" onClick={handleGenerateClick}>
-                    View Profile
-                  </button>
-                </div>
+                <AnimatePresence mode="wait" initial={false}>
+                  
+                    <motion.div
+                      // key={topMatches[currentIndex]?.uid}
+                      key={currentIndex}
+                      drag="x"
+                      dragConstraints={{ left: 0, right: 0 }}
+                      dragElastic={0.2}
+                      onDragEnd={(event, info) => {
+                        if (info.offset.x > 100) {
+                          handlePrev(); // swipe right
+                        } else if (info.offset.x < -100) {
+                          handleNext(); // swipe left
+                        }
+                      }}
+                      initial={{ opacity: 0, x: direction*150, rotate: 8*direction }}
+                      animate={{ opacity: 1, x: 0, rotate: 0 }}
+                      exit={{ opacity: 0, x: direction*-500, rotate: 8*direction }}
+                      transition={{ duration: 0.15, ease: [0.45, 0, 0.55, 1] }}
+                      className="profile-card"
+                    >
+                      <img
+                        src={profileImages[topMatches[currentIndex]?.uid] || tempProfilePicture}
+                        alt="Profile"
+                        className="profile-image"
+                      />
+                      <h3 className="profile-name">
+                        {topMatches[currentIndex]?.name}
+                      </h3>
+                      <button className="view-profile" onClick={handleGenerateClick}>
+                        View Profile
+                      </button>
+                    </motion.div>
+
+                </AnimatePresence>
 
                 <button className="arrow" onClick={handleNext}>
                   <ArrowRight size={32} />
