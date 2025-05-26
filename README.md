@@ -1,12 +1,17 @@
-# React + Vite
+# 🎧 Friendify
+Friendify is a social music app that lets users connect their Spotify account, visualize their top tracks and artists, and match with others based on shared music tastes. Built with React, Firebase, and Spotify’s Web API, Friendify turns music into a social connector, helping users not only discover new music but also build new relationships!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 **Live Site**: [friendify-ab070.web.app](https://friendify-ab070.web.app)
 
-Currently, two official plugins are available:
+## 🌟 Features
+- **Firebase Authentication**: Secure email/password login.
+- **Spotify Integration**: Fetches users' top tracks and top artists.
+- **Firestore Storage**: Stores each user’s Spotify data.
+- **User Matching**: Match users based on shared top artists.
+- **Clean, Intuitive UI**: Easy-to-use interface for a seamless experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+- **Frontend**: React, Vite
+- **Authentication & Database**: Firebase Auth & Firestore
+- **Music Data**: Spotify Web API
+- **Hosting**: Firebase Hosting
