@@ -165,7 +165,7 @@ const GenerateMatches = () => {
             profilePic: user5img,
             topArtists: [
               { id: "1", name: "J. Cole" },
-              { id: "2", name: "Beyoncé" },
+              { id: "2", name: "Tyler, The Creator" },
               { id: "3", name: "Kendrick Lamar" },
               { id: "4", name: "MF DOOM" },
             ],

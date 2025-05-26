@@ -34,10 +34,26 @@ function App() {
     if (hash) {
       const token = new URLSearchParams(hash.substring(1)).get("access_token");
       if (token) {
+        const expiresAt = Date.now() + 3600 * 1000; // 1 hour in ms
         localStorage.setItem("spotify_access_token", token);
+        localStorage.setItem("spotify_token_expires_at", expiresAt.toString());
         setAccessToken(token);
-        window.location.hash = ""; //clean URL
+        window.location.hash = ""; // Clean up URL
+        return;
       }
+    }
+
+    // Check if token is still valid in localStorage
+    const storedToken = localStorage.getItem("spotify_access_token");
+    const expiresAt = parseInt(localStorage.getItem("spotify_token_expires_at"), 10);
+
+    if (storedToken && expiresAt && Date.now() < expiresAt) {
+      setAccessToken(storedToken);
+    } else {
+      // Token expired or missing
+      localStorage.removeItem("spotify_access_token");
+      localStorage.removeItem("spotify_token_expires_at");
+      setAccessToken(null);
     }
   }, []);
 
